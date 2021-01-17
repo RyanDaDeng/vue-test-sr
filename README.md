@@ -2,6 +2,9 @@
 
 This is a simple Mapbox demo code to filter different geo locations by a given geo json data.
 
+
+<img src="https://github.com/RyanDaDeng/vue-test-sr/blob/main/public/demo.png" width="500" height="500" />
+
 ## Main packages used
 
 ````json
