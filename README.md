@@ -1,24 +1,39 @@
-# vue-test-sr
+# Vue Mapbox
 
-## Project setup
+This is a simple Mapbox demo code to filter different geo locations by a given geo json data.
+
+## Main packages used
+
+````json
+    {
+        "bootstrap": "^4.5.3",
+        "bootstrap-vue": "^2.21.2",
+        "mapbox-gl": "^2.0.1",
+        "vue": "^2.6.12",
+        "vue-mapbox": "^0.4.1",
+        "vuex": "^3.6.0",
+        "cypress": "^6.2.1", // only used for e2e testing demo
+    }
+````
+
+## Installation Steps
+
+1. Add your mapbox access token in `.env` file. (the project has contained a default token for you already)
+
+2. Install NPM packages
 ```
 npm install
 ```
 
-### Compiles and hot-reloads for development
+3. Run server:
+
 ```
 npm run serve
 ```
 
-### Compiles and minifies for production
-```
-npm run build
-```
 
-### Lints and fixes files
-```
-npm run lint
-```
+## Testing
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+1. E2E testing
+
+

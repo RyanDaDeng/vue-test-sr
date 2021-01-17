@@ -1,58 +1,69 @@
 <template>
-  <div class="hello">
-    <h1>{{ msg }}</h1>
-    <p>
-      For a guide and recipes on how to configure / customize this project,<br>
-      check out the
-      <a href="https://cli.vuejs.org" target="_blank" rel="noopener">vue-cli documentation</a>.
-    </p>
-    <h3>Installed CLI Plugins</h3>
-    <ul>
-      <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-babel" target="_blank" rel="noopener">babel</a></li>
-      <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-eslint" target="_blank" rel="noopener">eslint</a></li>
-    </ul>
-    <h3>Essential Links</h3>
-    <ul>
-      <li><a href="https://vuejs.org" target="_blank" rel="noopener">Core Docs</a></li>
-      <li><a href="https://forum.vuejs.org" target="_blank" rel="noopener">Forum</a></li>
-      <li><a href="https://chat.vuejs.org" target="_blank" rel="noopener">Community Chat</a></li>
-      <li><a href="https://twitter.com/vuejs" target="_blank" rel="noopener">Twitter</a></li>
-      <li><a href="https://news.vuejs.org" target="_blank" rel="noopener">News</a></li>
-    </ul>
-    <h3>Ecosystem</h3>
-    <ul>
-      <li><a href="https://router.vuejs.org" target="_blank" rel="noopener">vue-router</a></li>
-      <li><a href="https://vuex.vuejs.org" target="_blank" rel="noopener">vuex</a></li>
-      <li><a href="https://github.com/vuejs/vue-devtools#vue-devtools" target="_blank" rel="noopener">vue-devtools</a></li>
-      <li><a href="https://vue-loader.vuejs.org" target="_blank" rel="noopener">vue-loader</a></li>
-      <li><a href="https://github.com/vuejs/awesome-vue" target="_blank" rel="noopener">awesome-vue</a></li>
-    </ul>
+  <div>
+    <MglMap id="mapbox-map" :accessToken="accessToken" :mapStyle="mapStyle" :zoom="zoom" :center="center" >
+      <MglGeojsonLayer
+              sourceId="thisIsMySource"
+              :source="geoJsonSource"
+              layerId="somethingSomething"
+              :layer="geoJsonLayer"
+      />
+    </MglMap>
   </div>
 </template>
 
 <script>
-export default {
-  name: 'HelloWorld',
-  props: {
-    msg: String
-  }
-}
+  import Mapbox from "mapbox-gl";
+  import { MglMap, MglGeojsonLayer } from "vue-mapbox";
+  import geoSource from "../assets/testBlob.json"; // provided geo data
+
+  export default {
+    components: {
+      MglMap,
+      MglGeojsonLayer
+    },
+    data() {
+      return {
+        accessToken: process.env.VUE_APP_ACCESS_TOKEN,
+        mapStyle: 'mapbox://styles/ryandadeng/ckk11xfpq227c17qblxo082of',
+        geoJsonSource: {
+          type: "geojson",
+          data: geoSource
+        },
+        center: [151.2093,-33.8688], // default to NSW sydney CBD area
+        zoom: 14,
+        geoJsonLayer: {
+          type: "circle",
+          paint: {
+            'circle-radius': 8,
+            'circle-color': this.$store.state.filterOptions.locationColor,
+          },
+           filter: [">", ['get','Long',['get', 'project']],0] // using mapbox expressions, by default, get all dots when long > 0
+        }
+      };
+    },
+    watch: {
+      // watch state changes from vuex store
+      '$store.state.filterOptions': {
+        deep: true,
+        handler(newVal) {
+          this.geoJsonLayer.paint["circle-color"]= newVal.locationColor;
+          this.geoJsonLayer.filter = newVal.filter;
+        }
+      }
+    },
+    methods:{
+    },
+    created() {
+      this.mapbox = Mapbox;
+      console.log(this.mapbox.Map.getFeatureState)
+    }
+  };
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-h3 {
-  margin: 40px 0 0;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
-}
+
+<style>
+  #mapbox-map {
+    width: 100%;
+    height: 1000px;
+  }
 </style>

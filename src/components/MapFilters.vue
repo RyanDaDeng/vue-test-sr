@@ -1,53 +1,151 @@
 <template>
-  <div>
-    <MglMap  id="mapbox-map" :accessToken="accessToken" :mapStyle="mapStyle" :zoom="zoom" :center="center" >
+  <b-container>
+    <div class="accordion" role="tablist">
+      <b-card no-body class="mb-1">
+        <b-card-header header-tag="header" class="p-1" role="tab">
+          <b-button block v-b-toggle.accordion-1 variant="info">  Hide/Show Locations</b-button>
+        </b-card-header>
+        <b-collapse id="accordion-1" accordion="my-accordion" role="tabpanel">
+          <b-card-body>
+            Hide/Show Locations
+            <b-form-checkbox  id="showLocations" v-model="showLocations" switch>
+            </b-form-checkbox>
+          </b-card-body>
+        </b-collapse>
+      </b-card>
 
-      <MglGeojsonLayer
-              :sourceId="geoJsonSource.data.id"
-              :source="geoJsonSource"
-              layerId="somethingSomething"
-              :layer="geoJsonLayer"
-      />
-    </MglMap>
-  </div>
+      <b-card no-body class="mb-1">
+        <b-card-header header-tag="header" class="p-1" role="tab">
+          <b-button block v-b-toggle.accordion-2 variant="info"> Select a building</b-button>
+        </b-card-header>
+        <b-collapse id="accordion-2" accordion="my-accordion" role="tabpanel">
+          <b-card-body>
+            Select a building
+            <b-form-select v-model="selectedBuilding" :options="buildingOptions"></b-form-select>
+          </b-card-body>
+        </b-collapse>
+      </b-card>
+
+      <b-card no-body class="mb-1">
+        <b-card-header header-tag="header" class="p-1" role="tab">
+          <b-button block v-b-toggle.accordion-3 variant="info"> Change location point color</b-button>
+        </b-card-header>
+        <b-collapse id="accordion-3" accordion="my-accordion" role="tabpanel">
+          <b-card-body>
+            Change location point color
+            <b-form-input  type="color" v-model="changeLocationColor"></b-form-input>
+          </b-card-body>
+        </b-collapse>
+      </b-card>
+
+
+      <b-card no-body class="mb-1">
+        <b-card-header header-tag="header" class="p-1" role="tab">
+          <b-button block v-b-toggle.accordion-4 variant="info">  Search Title </b-button>
+        </b-card-header>
+        <b-collapse id="accordion-4" accordion="my-accordion" role="tabpanel">
+          <b-card-body>
+            Search Title (exact match)
+            <b-form-input type="text" v-model="searchTitleTextFilter"></b-form-input>
+            <small>e.g. LOUIS VUITTON SYDNEY</small>
+          </b-card-body>
+        </b-collapse>
+      </b-card>
+
+      <b-card no-body class="mb-1">
+        <b-card-header header-tag="header" class="p-1" role="tab">
+          <b-button block v-b-toggle.accordion-5 variant="info">     Ownership type </b-button>
+        </b-card-header>
+        <b-collapse id="accordion-5" accordion="my-accordion" role="tabpanel">
+          <b-card-body>
+            Ownership type
+            <b-form-checkbox-group
+                    @change="searchOwnerShip"
+                    v-model="selectedOwnerships"
+                    :options="options"
+                    class="mb-3"
+                    value-field="item"
+                    text-field="name"
+            ></b-form-checkbox-group>
+          </b-card-body>
+        </b-collapse>
+      </b-card>
+    </div>
+
+  </b-container>
 </template>
 
 <script>
-  import Mapbox from "mapbox-gl";
-  import { MglMap, MglGeojsonLayer } from "vue-mapbox";
   import geoSource from "../assets/testBlob.json";
+
   export default {
     components: {
-      MglMap,
-      MglGeojsonLayer
+    },
+    watch:{
+      changeLocationColor: function (val) {
+        this.$store.commit("changeFilterColor", val);
+      },
+      showLocations: function (val) {
+        let filter;
+        if(val){
+          filter = ["<", ['get','Long',['get', 'project']],-1111]
+        }else{
+          filter = this.emptyFilterExpression();
+        }
+        this.$store.commit("searchFilter", filter);
+      },
+      selectedBuilding: function(val){
+        this.searchTitle(val);
+      },
+      searchTitleTextFilter: function(val){
+        this.searchTitle(val);
+      },
+    },
+    methods:{
+      // clean up filter by using default filter that check if long > 0
+      emptyFilterExpression(){
+        return [">", ['get','Long',['get', 'project']],0];
+      },
+      // use match expression to match if val is equal
+      searchTitle(val){
+        let filter;
+        if(val){
+          filter = ['match', ['get','Title',['get', 'project']], [val], true, false];
+        }else{
+          filter = this.emptyFilterExpression();
+        }
+        this.$store.commit("searchFilter", filter);
+      },
+      // use match expression to match if all conditions are equal
+      searchOwnerShip(){
+        let filter;
+        if(this.selectedOwnerships.length > 0){
+          filter = ['match', ['get','Ownership',['get', 'project']], this.selectedOwnerships, true, false];
+        }else{
+          filter = this.emptyFilterExpression();
+        }
+        this.$store.commit("searchFilter", filter);
+      },
     },
     data() {
       return {
-        accessToken: 'pk.eyJ1IjoicnlhbmRhZGVuZyIsImEiOiJja2sxMTlrOWYwNHN5Mm9vZjh0b2lmdTN0In0.pzqSXgSy9HSgsLERdPW4CA', // your access token. Needed if you using Mapbox maps
-        mapStyle: 'mapbox://styles/ryandadeng/ckk11xfpq227c17qblxo082of', // your map style
-        geoJsonSource: geoSource,
-        center: [151.2093,-33.8688],
-        zoom: 13,
-        geoJsonLayer: {
-          type: "circle",
-          paint: {
-            "circle-color": "red"
-          }
-        }
+        buildingOptions: [],
+        selectedBuilding: null,
+        options: [
+          { item: 'STATE', name: 'STATE' },
+          { item: 'PRIVATE', name: 'PRIVATE' }
+        ],
+        selectedOwnerships: [],
+        changeLocationColor: this.$store.state.filterOptions.locationColor, // point color filter
+        searchTitleTextFilter: null,
+        showLocations: false
       };
     },
-
     created() {
-      // We need to set mapbox-gl library here in order to use it in template
-      this.mapbox = Mapbox;
+      // create a list of options from given geo data for Title list
+      this.buildingOptions = geoSource.features.map((item)=>{
+        return  { value: item.properties.project.Title, text:  item.properties.project.Title};
+      });
     }
   };
 </script>
-
-
-<style>
-  #mapbox-map {
-    width: 100%;
-    height: 100%;
-  }
-</style>
