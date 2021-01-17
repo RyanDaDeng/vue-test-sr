@@ -7,6 +7,8 @@ This is a simple Mapbox demo code to filter different geo locations by a given g
 - https://agitated-sammet-9bb657.netlify.app
 
 
+<img src="https://github.com/RyanDaDeng/vue-test-sr/blob/main/public/demo.png" width="900" height="700" />
+
 ## Main packages used
 
 ````json
