@@ -8,6 +8,7 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 
 Vue.config.productionTip = false
 // Make BootstrapVue available throughout your project
+//TODO for performance concern, we could also import components as needed instead of loading the whole bootstrapvue.
 Vue.use(BootstrapVue)
 // Optionally install the BootstrapVue icon components plugin
 Vue.use(IconsPlugin)

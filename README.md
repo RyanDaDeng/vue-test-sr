@@ -2,6 +2,8 @@
 
 This is a simple Mapbox demo code to filter different geo locations by a given geo json data.
 
+Note: The solution I built is based on VueMapBox. In real life, I recommend using MapBox.js as 1st option as it documents more comprehensive.
+
 ## Online Demo on netlify
 
 - https://agitated-sammet-9bb657.netlify.app
@@ -59,3 +61,5 @@ The project only contains one simple test that test if the show/hide location ca
 The project will be deployed to netlify for every time there is a new commit.
 
 The deployment will be failed if the unit test is failed.
+
+ref: https://community.netlify.com/t/support-guide-testing-your-netlify-builds/1456
