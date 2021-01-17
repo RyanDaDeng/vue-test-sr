@@ -2,6 +2,11 @@
 
 This is a simple Mapbox demo code to filter different geo locations by a given geo json data.
 
+## Online Demo on netlify
+
+- https://agitated-sammet-9bb657.netlify.app
+
+
 ## Main packages used
 
 ````json
