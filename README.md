@@ -41,6 +41,21 @@ npm run serve
 
 ## Testing
 
-1. E2E testing
+### E2E testing
+
+The project only contains one simple test that test if the show/hide location can be checked.
+
+1. run the following bash command
+
+```
+./node_modules/.bin/cypress open
+```
+
+### Component Testing // todo
 
 
+## CI/CD
+
+The project will be deployed to netlify for every time there is a new commit.
+
+The deployment will be failed if the unit test is failed.
