@@ -9,5 +9,5 @@ test('location color is changed', () => {
         }
     }
     mutations.changeFilterColor(state, "#FFFFFF")
-    expect(state.filterOptions.locationColor).toBe("#FF2FFFF")
+    expect(state.filterOptions.locationColor).toBe("#FF2sFFFF")
 })

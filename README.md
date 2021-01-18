@@ -67,8 +67,8 @@ npm run test:unit
 
 ## CI/CD
 
-The project will be deployed to netlify for every time there is a new commit.
+The project will be deployed to `netlify` for every time there is a new commit.
 
-The deployment will be failed if the unit test is failed.
+The deployment will be `failed` if the `unit test` is failed.
 
 ref: https://community.netlify.com/t/support-guide-testing-your-netlify-builds/1456
