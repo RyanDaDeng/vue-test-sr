@@ -6,7 +6,7 @@ Note: The solution I built is based on VueMapBox. In real life, I recommend usin
 
 ## Online Demo on netlify
 
-- https://agitated-sammet-9bb657.netlify.app
+- https://vue-sr-test.netlify.app
 
 
 <img src="https://github.com/RyanDaDeng/vue-test-sr/blob/main/public/demo.png" width="900" height="700" />
@@ -71,4 +71,11 @@ The project will be deployed to `netlify` for every time there is a new commit.
 
 The deployment will be `failed` if the `unit test` is failed.
 
+The settings on netlify is simply configured as `npm run test:unit && npm run build`.
+
 ref: https://community.netlify.com/t/support-guide-testing-your-netlify-builds/1456
+
+
+## Notes
+
+All things that I did for testing, functions, UI etc are all basic setup.
