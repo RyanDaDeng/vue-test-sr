@@ -45,7 +45,8 @@ npm run serve
 
 ### E2E testing
 
-The project only contains one simple test that test if the show/hide location can be checked.
+- Using `cypress` as e2e testing tool
+- The project only contains one simple test that test if the show/hide location can be checked.
 
 1. run the following bash command
 
@@ -53,8 +54,16 @@ The project only contains one simple test that test if the show/hide location ca
 ./node_modules/.bin/cypress open
 ```
 
-### Component Testing // todo
+### Unit Test
 
+- Using `Vue Test Utils` as unit testing tool
+- The project only contains one simple test that test if vuex mutations can update value.
+
+1. run the following bash command
+
+```
+npm run test:unit
+```
 
 ## CI/CD
 

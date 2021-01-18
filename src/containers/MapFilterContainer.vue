@@ -23,9 +23,21 @@
     import MapSandbox from "@/components/MapSandbox";
     import MapFilters from "@/components/MapFilters";
 
+    import {
+        BContainer,
+        BRow,
+        BCard
+    } from "bootstrap-vue";
+
     export default {
         name: "MapFilterContainer",
-        components: {MapFilters, MapSandbox},
+        components: {
+            MapFilters,
+            MapSandbox,
+            BContainer,
+            BRow,
+            BCard
+        },
         data() {
             return {};
         },

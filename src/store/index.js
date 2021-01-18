@@ -1,6 +1,6 @@
 import Vue from "vue";
 import Vuex from "vuex";
-
+import mutations from "./mutations"
 Vue.use(Vuex);
 
 export default new Vuex.Store({
@@ -12,14 +12,6 @@ export default new Vuex.Store({
         }
     },
     getters: {},
-    mutations: {
-        changeFilterColor (state, payload) {
-            state.filterOptions.locationColor = payload
-        },
-        searchFilter (state, payload) {
-            state.filterOptions.filter = payload
-        },
-    },
+    mutations,
     actions: {}
 });
-

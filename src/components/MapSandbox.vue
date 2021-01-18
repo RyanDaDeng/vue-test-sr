@@ -55,7 +55,6 @@
     },
     created() {
       this.mapbox = Mapbox;
-      console.log(this.mapbox.Map.getFeatureState)
     }
   };
 </script>
