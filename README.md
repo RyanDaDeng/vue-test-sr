@@ -56,7 +56,7 @@ npm run serve
 
 ### Unit Test
 
-- Using `Vue Test Utils` as unit testing tool
+- Using official `Vue Test Utils` as unit testing tool. ref:https://vue-test-utils.vuejs.org/
 - The project only contains one simple test that test if vuex mutations can update value.
 
 1. run the following bash command
