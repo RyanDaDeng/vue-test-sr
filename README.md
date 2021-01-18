@@ -76,6 +76,9 @@ The settings on netlify is simply configured as `npm run test:unit && npm run bu
 
 ref: https://community.netlify.com/t/support-guide-testing-your-netlify-builds/1456
 
+In real life, we should only do deploy when a certain tag/release is attached to a specific branch by git flow.
+
+For example, a release branch and a version tag is assigned to `main` branch then it hooks github Actions to do production deployment.
 
 ## Notes
 
