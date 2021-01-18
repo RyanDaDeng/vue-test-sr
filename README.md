@@ -4,6 +4,8 @@ This is a simple Mapbox demo code to filter different geo locations by a given g
 
 Note: The solution I built is based on VueMapBox. In real life, I recommend using MapBox.js as 1st option as it documents more comprehensive.
 
+Note: I didn't do test on mobile please use web browser.
+
 ## Online Demo on netlify
 
 - https://vue-sr-test.netlify.app
