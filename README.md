@@ -48,7 +48,8 @@ npm run serve
 - Using `cypress` as e2e testing tool
 - The project only contains one simple test that test if the show/hide location can be checked.
 
-1. run the following bash command
+1. Set up your local server url in `cypress.json` file
+2. run the following bash command
 
 ```
 ./node_modules/.bin/cypress open
